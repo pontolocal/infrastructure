@@ -1,6 +1,6 @@
 services:
   backend:
-    image: pontolocal/backend
+    image: ghcr.io/pontolocal/backend
     container_name: pontolocal_backend
     environment:
       DATABASE_USERNAME: ${DATABASE_USERNAME}
