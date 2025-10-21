@@ -4,14 +4,15 @@
       container_name: pontolocal_backend
       ports:
         - "${BACKEND_PORT:-8080}:${BACKEND_PORT:-8080}"
-      environment:
+      environment:  
         BACKEND_PORT: ${BACKEND_PORT:-8080}
         DATABASE_USERNAME: ${DATABASE_USERNAME:-admin}
         DATABASE_PASSWORD: ${DATABASE_PASSWORD:-admin}
         DATABASE_NAME: ${DATABASE_NAME:-pontolocal}
         DATABASE_HOST: ${DATABASE_HOST:-database}
         DATABASE_PORT: ${DATABASE_PORT:-5432}
-        
+      profiles: ["default", "frontend-dev"]    
+    
     database:
       image: postgres:16
       container_name: pontolocal_database
@@ -24,6 +25,7 @@
           POSTGRES_DB: ${DATABASE_NAME:-ponto_local}
       volumes:
         - postgres_data:/var/lib/postgresql/data
+      profiles: ["backend-dev", "frontend-dev", "default"]  
     
     pgadmin:
       image: dpage/pgadmin4
@@ -36,6 +38,7 @@
 
       volumes:
         - pgadmin_data:/var/lib/pgadmin
+      profiles: ["backend-dev", "frontend-dev", "default"]
 
   volumes:
     postgres_data:
